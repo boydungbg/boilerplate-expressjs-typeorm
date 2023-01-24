@@ -1,0 +1,53 @@
+{
+  "ts-node": {
+    "require": [
+      "tsconfig-paths/register"
+    ]
+  },
+  "compilerOptions": {
+    "target": "esnext",
+    "pretty": true,
+    "sourceMap": true,
+    "outDir": "./build",
+    "rootDir": "./src",
+    "baseUrl": ".",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "module": "commonjs",
+    "paths": {
+      "@/controller/*": [
+        "src/controllers/*"
+      ],
+      "@/middlewares/*": [
+        "src/middlewares/*"
+      ],
+      "@/models/*": [
+        "src/models/*"
+      ],
+      "@/routers/*": [
+        "src/routers/*"
+      ],
+      "@/services/*": [
+        "src/services/*"
+      ],
+      "@/utils/*": [
+        "src/utils/*"
+      ],
+      "@/configs/*": [
+        "src/configs/*"
+      ],
+    },
+  },
+  "include": [
+    "./src"
+  ],
+  "exclude": [
+    "./node_modules"
+  ],
+}
