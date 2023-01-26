@@ -1,13 +1,19 @@
+import { responseError } from '@/utils/Response';
+import ExceptionHandler from '@/models/ExceptionHandler';
 import { Response, Request, NextFunction } from 'express';
 
 const errorHandler = (
-  err: Error,
+  err: ExceptionHandler,
   _: Request,
   res: Response,
   next: NextFunction
 ) => {
-  console.log(res);
-  res.render(err.message);
+  responseError({
+    res: res,
+    status: err.status,
+    message: err.message,
+    data: err.data
+  })
 };
 
-export default errorHandler;
+export { errorHandler };
