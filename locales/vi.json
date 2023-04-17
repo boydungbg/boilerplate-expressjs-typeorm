@@ -1,0 +1,14 @@
+{
+  "successfully": "Thành công",
+  "faild": "Lỗi hệ thống xảy ra.",
+  "slug_category_exist": "Đường dẫn danh mục trùng với một danh mục khác.",
+  "get_category_slug_not_found": "Không tìm thấy danh mục có đường dẫn: ${value}.",
+  "get_category_id_not_found": "Không tìm thấy danh mục có id: ${value}.",
+  "update_info_category_successfully": "Cập nhật thông tin danh mục thành công.",
+  "update_status_category_successfully": "Cập nhật trạng thái danh mục thành công.",
+  "slug_product_exist": "Đường dẫn sản phẩm trùng với một sản khác.",
+  "get_product_id_not_found": "Không tìm thấy sản phẩm có id: ${value}.",
+  "get_product_slug_not_found": "Không tìm thấy sản phẩm có đường dẫn: ${value}.",
+  "update_info_product_successfully": "Cập nhật thông tin sản phẩm thành công.",
+  "update_status_product_successfully": "Cập nhật trạng thái sản phẩm thành công."
+}

@@ -9,7 +9,7 @@
     "pretty": true,
     "sourceMap": true,
     "outDir": "./build",
-    "rootDir": "./src",
+    "rootDir": ".",
     "baseUrl": ".",
     "allowJs": true,
     "skipLibCheck": true,
@@ -22,32 +22,38 @@
     "module": "commonjs",
     "paths": {
       "@/controller/*": [
-        "src/controllers/*"
+        "./src/controllers/*"
       ],
       "@/middlewares/*": [
-        "src/middlewares/*"
+        "./src/middlewares/*"
       ],
       "@/models/*": [
-        "src/models/*"
+        "./src/models/*"
       ],
       "@/routers/*": [
-        "src/routers/*"
+        "./src/routers/*"
       ],
       "@/services/*": [
-        "src/services/*"
+        "./src/services/*"
       ],
       "@/utils/*": [
-        "src/utils/*"
+        "./src/utils/*"
       ],
       "@/configs/*": [
-        "src/configs/*"
+        "./src/configs/*"
       ],
-    },
+      "@/exceptions/*": [
+        "./src/exceptions/*"
+      ],
+      "@/locales/*": [
+        "locales/*"
+      ]
+    }
   },
   "include": [
     "./src"
   ],
   "exclude": [
     "./node_modules"
-  ],
+  ]
 }
