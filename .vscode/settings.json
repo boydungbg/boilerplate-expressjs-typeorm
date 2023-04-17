@@ -3,8 +3,9 @@
   "editor.formatOnPaste": true,
   // Default (format when you save)
   "editor.formatOnSave": true,
+  "editor.rulers": [80],
   "[typescript]": {
     "editor.formatOnPaste": false,
-    "editor.formatOnSave": false,
-  },
+    "editor.formatOnSave": false
+  }
 }

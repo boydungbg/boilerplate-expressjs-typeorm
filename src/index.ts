@@ -1,20 +1,18 @@
 import bodyParser from 'body-parser';
-import express, {
-  Response,
-  Express,
-  Router,
-} from 'express';
+import express, { Response, Express, Router } from 'express';
 import cors from 'cors';
 import dotEnv from 'dotenv';
 dotEnv.config();
 import { errorHandler } from '@/middlewares/ErrorHandler';
-import { routersCatetory } from '@/routers/category';
 import { sequelize } from '@/configs/ConnectDB';
+import { adminRoutes } from '@/routers/Admin';
+import { routes } from '@/routers/index';
 
 const App = async () => {
   const PORT: string = process.env.PORT || '3000';
   const app: Express = express();
-  const api_v1: Router = express.Router();
+  const api_admin: Router = express.Router();
+  const api: Router = express.Router();
 
   // Connection database
   try {
@@ -23,28 +21,35 @@ const App = async () => {
   } catch (error) {
     console.error('Unable to connect to the database:', error);
   }
+  require('@/models/index');
 
-  app.use(bodyParser.urlencoded({
-    extended: true
-  }))
-  app.use(bodyParser.json())
-  app.use(express.urlencoded({
-    extended: true
-  }))
-  app.use(express.json())
+  app.use(
+    bodyParser.urlencoded({
+      extended: true
+    })
+  );
+  app.use(bodyParser.json());
+  app.use(
+    express.urlencoded({
+      extended: true
+    })
+  );
+  app.use(express.json());
   app.use(cors());
-  app.use("/", express.static("public"));
+  app.use('/', express.static('public'));
 
   app.listen(PORT, () => {
     console.log(`Server listen port ${PORT}`);
   });
 
-  app.use('/api/v1', api_v1);
-  routersCatetory(api_v1);
+  app.use('/api/v1/admin', api_admin);
+  app.use('/api/v1', api);
+  adminRoutes(api_admin);
+  routes(api);
 
   app.use(errorHandler);
   app.get('/', (_, res: Response) => {
-    res.send(`Server is running!`)
+    res.send(`Server is running!`);
   });
 };
 

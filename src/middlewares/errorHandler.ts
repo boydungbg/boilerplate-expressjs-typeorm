@@ -1,5 +1,5 @@
 import { responseError } from '@/utils/Response';
-import ExceptionHandler from '@/models/ExceptionHandler';
+import ExceptionHandler from 'src/exceptions/ExceptionHandler';
 import { Response, Request, NextFunction } from 'express';
 
 const errorHandler = (
@@ -13,7 +13,7 @@ const errorHandler = (
     status: err.status,
     message: err.message,
     data: err.data
-  })
+  });
 };
 
 export { errorHandler };

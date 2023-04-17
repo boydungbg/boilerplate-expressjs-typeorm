@@ -1,49 +1,52 @@
-import Category from "@/models/Category";
-import GenUUID from "@/utils/GenUUID";
-
-type AddCategoryParams = {
-  slug: string;
-  name: string;
-  description: string | undefined;
-}
+import { Category } from '@/models/index';
 
 const enum StatusCategory {
   ACTIVE = 1,
   IN_ACTIVE = 0
 }
 
-type UpdateCategoryParams = {
-  id: string
+export type AddCategoryParams = {
   slug: string;
   name: string;
-  description: string | undefined;
-  status: number | undefined;
-}
+  description?: string;
+};
+
+export type UpdateCategoryParams = {
+  id: string;
+  slug: string;
+  name: string;
+  description?: string;
+};
 
 const addCategory = async ({ slug, name, description }: AddCategoryParams) => {
   const newCategory = await Category.create({
-    id: GenUUID(),
     slug: slug,
     name: name,
-    description: description,
+    description: description
   });
-  return newCategory
-}
+  return newCategory;
+};
+
+const getCategoryById = async (id: string) => {
+  const category = await Category.findByPk(id);
+  if (!category) return null;
+  return category;
+};
 
 const getCategoryBySlug = async (slug: string) => {
   const category = await Category.findOne({
-    where: { slug: slug },
-  })
-
+    where: { slug: slug }
+  });
+  if (!category) return null;
   return category;
-}
+};
 
 const getAllCategory = async (page: number, limit: number) => {
   if (isNaN(page) || isNaN(limit)) {
     const data = await Category.findAll();
     return {
       categories: data
-    }
+    };
   }
   const offset = (page - 1) * limit;
   const data = await Category.findAndCountAll({
@@ -54,13 +57,18 @@ const getAllCategory = async (page: number, limit: number) => {
     categories: data.rows,
     count: data.count,
     maxPage: Math.ceil(data.count / limit)
-  }
-}
+  };
+};
 
-const updateCategory = async ({ id, slug, name, description, status }: UpdateCategoryParams) => {
+const updateCategory = async ({
+  id,
+  slug,
+  name,
+  description
+}: UpdateCategoryParams) => {
   const category = await Category.findOne({
-    where: { id: id },
-  })
+    where: { id: id }
+  });
   if (category) {
     category.slug = slug;
     category.name = name;
@@ -70,20 +78,28 @@ const updateCategory = async ({ id, slug, name, description, status }: UpdateCat
     return null;
   }
   return category;
-}
+};
 
 const updateStatusCategory = async (id: string) => {
   const category = await Category.findOne({
-    where: { id: id },
-  })
-  if (category) {
-    category.status = category.status == StatusCategory.ACTIVE ? StatusCategory.IN_ACTIVE : StatusCategory.ACTIVE;
-    category.save();
-  } else {
+    where: { id: id }
+  });
+  if (!category) {
     return null;
   }
+  category.status =
+    category.status == StatusCategory.ACTIVE
+      ? StatusCategory.IN_ACTIVE
+      : StatusCategory.ACTIVE;
+  category.save();
   return category;
-}
+};
 
-
-export { addCategory, getCategoryBySlug, getAllCategory, updateCategory, updateStatusCategory };
+export {
+  addCategory,
+  getCategoryById,
+  getCategoryBySlug,
+  getAllCategory,
+  updateCategory,
+  updateStatusCategory
+};

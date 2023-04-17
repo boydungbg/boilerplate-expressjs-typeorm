@@ -1,53 +1,58 @@
-import { Model, DataTypes, Optional } from 'sequelize'
 import { sequelize } from '@/configs/ConnectDB';
+import { Model, DataTypes, Optional, Sequelize } from 'sequelize';
 
-type CategoryAttributes = {
-  id: string,
-  slug: string,
-  name: string,
-  description: string | undefined,
-  status: number | undefined,
-}
+type CategoryModelAttributes = {
+  id?: number;
+  uuid?: string;
+  slug: string;
+  name: string;
+  description?: string;
+  status?: number;
+};
 
-class Category extends Model<CategoryAttributes> {
-  declare id: string;
+class Category extends Model<CategoryModelAttributes> {
+  declare id: number;
+  declare uuid: string;
   declare slug: string;
   declare name: string;
   declare description: string | undefined;
   declare status: number | undefined;
 }
 
-(async () => {
-  Category.init({
+Category.init(
+  {
     id: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       primaryKey: true,
-      allowNull: false,
-      unique: true,
+      autoIncrement: true,
+      unique: true
+    },
+    uuid: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      unique: true
     },
     slug: {
       type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
+      unique: true
     },
     name: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: DataTypes.STRING
     },
     description: {
       type: DataTypes.TEXT,
-      allowNull: true,
+      allowNull: true
     },
     status: {
       type: DataTypes.TINYINT,
-      defaultValue: 1,
-      allowNull: false,
-    },
-  }, {
+      defaultValue: 1
+    }
+  },
+  {
     sequelize: sequelize,
-  });
-
-  Category.sync();
-})()
+    deletedAt: true,
+    modelName: 'category'
+  }
+);
 
 export default Category;
